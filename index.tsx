@@ -77,13 +77,13 @@ const format = (date: Date, formatTemplate: string): string => {
     const sameElseFormat = settings.store?.formats?.sameElseFormat || timeFormats.sameElseFormat.default;
 
     return mmt.format(formatTemplate)
-        .replace("relative", () => mmt.fromNow())
         .replace("calendar", () => mmt.calendar(null, {
             sameDay: sameDayFormat,
             lastDay: lastDayFormat,
             lastWeek: lastWeekFormat,
             sameElse: sameElseFormat
-        }));
+        }))
+        .replace("relative", () => mmt.fromNow());
 };
 
 const TimeRow = (props: TimeRowProps) => {
@@ -163,7 +163,7 @@ export default definePlugin({
     description: "Custom timestamps on messages and tooltips",
     authors: [
         Devs.Rini,
-        { id: 165098921071345666n, name: "nvhhr" },
+        { name: "nvhhr", id: 165098921071345666n },
         { name: "Suffocate", id: 772601756776923187n }
     ],
     settings,
@@ -194,15 +194,7 @@ export default definePlugin({
         ]
     }],
 
-    formatCompact(date: Date) {
-        return format(date, settings.use(["formats"]).formats?.compactFormat || timeFormats.compactFormat.default);
-    },
-
-    formatCozy(date: Date) {
-        return format(date, settings.use(["formats"]).formats?.cozyFormat || timeFormats.cozyFormat.default);
-    },
-
-    formatTooltip(date: Date) {
-        return format(date, settings.use(["formats"]).formats?.tooltipFormat || timeFormats.tooltipFormat.default);
-    }
+    formatCompact: (date: Date) => format(date, settings.use(["formats"]).formats?.compactFormat || timeFormats.compactFormat.default),
+    formatCozy: (date: Date) => format(date, settings.use(["formats"]).formats?.cozyFormat || timeFormats.cozyFormat.default),
+    formatTooltip: (date: Date) => format(date, settings.use(["formats"]).formats?.tooltipFormat || timeFormats.tooltipFormat.default)
 });
