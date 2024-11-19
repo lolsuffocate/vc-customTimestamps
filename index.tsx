@@ -8,7 +8,7 @@ import { definePluginSettings, useSettings } from "@api/Settings";
 import { Link } from "@components/Link";
 import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
-import { Forms, Heading, moment, TextInput, useEffect, useState } from "@webpack/common";
+import { Forms, moment, TextInput, useEffect, useState } from "@webpack/common";
 
 type TimeFormat = {
     name: string;
@@ -101,7 +101,7 @@ const TimeRow = (props: TimeRowProps) => {
 
     return (
         <div style={{ padding: "0 0 20px 0" }}>
-            <Heading>{props.format.name}</Heading>
+            <Forms.FormTitle tag="h4">{props.format.name}</Forms.FormTitle>
             <Forms.FormText>{props.format.description}</Forms.FormText>
             <TextInput value={state} onChange={handleChange}/>
             <Forms.FormText style={{ color: "red" }}>{preview}</Forms.FormText>
@@ -124,31 +124,24 @@ const settings = definePluginSettings({
 
             return (
                 <Forms.FormSection>
-                    {Object.entries(timeFormats).map(([key, value]) => {
-                        if (key === "sameDayFormat") {
-                            // todo: do properly
-                            return <>
+                    {Object.entries(timeFormats).map(([key, value]) => (
+                        <div key={key}>
+                            {key === "sameDayFormat" && (
                                 <div style={{ padding: "0 0 20px 0" }}>
-                                    <Forms.FormTitle tag="h3">Calendar formats</Forms.FormTitle>
+                                    <Forms.FormTitle tag="h1">Calendar formats</Forms.FormTitle>
                                     <Forms.FormText>
                                         How to format the [calendar] value if used in the above timestamps.
                                     </Forms.FormText>
                                 </div>
-                                <TimeRow
-                                    id={key}
-                                    format={value}
-                                    onChange={setNewValue}
-                                    pluginSettings={settingsState}
-                                />
-                            </>;
-                        }
-                        return <TimeRow
-                            id={key}
-                            format={value}
-                            onChange={setNewValue}
-                            pluginSettings={settingsState}
-                        />;
-                    })}
+                            )}
+                            <TimeRow
+                                id={key}
+                                format={value}
+                                onChange={setNewValue}
+                                pluginSettings={settingsState}
+                            />
+                        </div>
+                    ))}
                 </Forms.FormSection>
             );
         }
@@ -181,7 +174,7 @@ export default definePlugin({
                 <Link href="https://momentjs.com/docs/#/displaying/format/">Moment.js formatting documentation</Link>
                 <p>
                     Additionally you can use these in your inputs:<br/>
-                    <b>[calendar]</b> enables dynamic date formatting (see options below),<br/>
+                    <b>[calendar]</b> enables dynamic date formatting such as &quot;Today&quot; or &quot;Yesterday&quot;.<br/>
                     <b>[relative]</b> gives you times such as &quot;4 hours ago&quot;.<br/>
                 </p>
             </Forms.FormText>
