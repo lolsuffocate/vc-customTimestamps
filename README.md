@@ -4,6 +4,10 @@ This plugin allows you to customize the timestamps in chat messages and tooltips
 
 ## Formats
 
+- Cozy: The timestamp by your username when chat is in cozy mode.
+- Compact: The timestamp to the left of messages when chat is in compact mode when you send multiple messages in cozy mode.
+- Tooltip: The timestamp in the tooltip when hovering over a message.
+
 ### Placeholders
 
 - **[calendar]**: Replaced with moment.js's calendar time, which dynamically adjusts based on the date.
