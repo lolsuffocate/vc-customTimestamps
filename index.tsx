@@ -197,7 +197,7 @@ export default definePlugin({
             replacement: [
                 {
                     // Timestamps on messages
-                    match: /\i\.useMemo\(\(\)=>null.*?(\i)\?\(0,\i\.\i\)\((\i),"LT"\):\(0,\i\.\i\)\(\i,!0\),\[\i,\i,\i]\)/,
+                    match: /\i\.useMemo\(\(\)=>null!=\i\?\(0,\i\.\i\)\(\i,\i\):(\i)\?\(0,\i\.\i\)\((\i),"LT"\):\(0,\i\.\i\)\(\i,!0\),\[\i,\i,\i]\)/,
                     replace: "$self.renderTimestamp($2,$1?'compact':'cozy')",
                 },
                 {
