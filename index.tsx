@@ -188,9 +188,6 @@ const DemoMessageContainer = ErrorBoundary.wrap(() => {
 
 const settings = definePluginSettings({
     formats: {
-        onChange: v => {
-            console.error("CustomTimestamps: formats changed", v);
-        },
         type: OptionType.COMPONENT,
         description: "Customize the timestamp formats",
         component: componentProps => {
