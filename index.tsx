@@ -292,7 +292,7 @@ export default definePlugin({
                 },
                 {
                     // Tooltips when hovering over message timestamps
-                    match: /(?<=text:)\(\)=>\(0,\i.\i\)\((\i),"LLLL"\)(?=,)(?<=isInline:\i=!0,id:(\i),.{0,500})/,
+                    match: /(?<=text:)\(\)=>\(0,\i.\i\)\((\i),"LLLL"\)(?=,)(?=.{0,400},id:(\i),compact)/,
                     replace: "$self.renderTimestamp($1,'tooltip', $2)",
                 },
             ]
