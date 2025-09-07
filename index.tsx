@@ -127,15 +127,12 @@ const MessagePreview = findComponentByCodeLazy<{
     className: string,
     hideSimpleEmbedContent: boolean
 }>(/previewGuildId:\i,preview:\i,/);
-const createMessage = findByCodeLazy(/channelId:\i,content:\i,tts:\i=!1,/);
-const populateMessagePrototype = findByCodeLazy(/PREMIUM_REFERRAL&&\(\i=\i.default.isProbablyAValidSnowflake\(/);
+const createBotMessage = findByCodeLazy('username:"Clyde"');
+const populateMessagePrototype = findByCodeLazy("isProbablyAValidSnowflake", "messageReference:");
 
-const DemoMessage = (props: { msgId, compact, message, date: Date | undefined, isGroupStart?: boolean }) => {
-    const message = createMessage({
-        content: props.message || "This is a demo message to preview the custom timestamps.",
-        channelId: "1337",
-        state: "SENT"
-    });
+const DemoMessage = (props: { msgId, compact, message, date: Date | undefined, isGroupStart?: boolean; }) => {
+    const message = createBotMessage({ content: props.message, channelId: "1337", embeds: [] });
+    message.author = UserStore.getCurrentUser();
     message.id = props.msgId;
     message.timestamp = moment(props.date ?? new Date());
     const user = UserStore.getCurrentUser();
@@ -229,7 +226,7 @@ const settings = definePluginSettings({
         lastDayFormat: string;
         lastWeekFormat: string;
         sameElseFormat: string;
-    }
+    };
 }>();
 
 export default definePlugin({
